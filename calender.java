@@ -101,14 +101,14 @@ class LocalExample4
             case Weekly:
              {
                 int[] order = new int[dayList.length];
-                int index=0;
+                int index = 0;
                 // Creating a order array based on runOnDaysOfWeek
                 for(ShortDays days:ShortDays.values())
                 {   
                     if(index<dayList.length && days.name().contains(dayList[index]))
                     {   
-                        order[index]=days.Value();
-                        index+=1;
+                        order[index] = days.Value();
+                        index += 1;
                     }
                 }
 
@@ -146,7 +146,7 @@ class LocalExample4
                     nextDate.set(Calendar.MINUTE,startDateC.get(Calendar.MINUTE));
                     nextDate.set(Calendar.SECOND,startDateC.get(Calendar.SECOND));
 
-                    Calendar tempSystemTime= Calendar.getInstance();
+                    Calendar tempSystemTime = Calendar.getInstance();
                     
                     tempStartDate.set(Calendar.DAY_OF_WEEK,1);
                     tempSystemTime.set(Calendar.DAY_OF_WEEK,7);
@@ -161,7 +161,7 @@ class LocalExample4
                     // If dueWeeks = 0, i.e currentWeek is eligible for task execution . 
                     if (dueWeeks == 0) 
                     {    
-                        tempSystemTime=Calendar.getInstance();
+                        tempSystemTime = Calendar.getInstance();
                         tempSystemTime.set(Calendar.HOUR_OF_DAY,startDateC.get(Calendar.HOUR_OF_DAY));
                         tempSystemTime.set(Calendar.MINUTE,startDateC.get(Calendar.MINUTE));
                         tempSystemTime.set(Calendar.SECOND,startDateC.get(Calendar.SECOND));
@@ -186,7 +186,7 @@ class LocalExample4
                             else
                             {
                                 tempSystemTime.add(Calendar.DAY_OF_WEEK,1);
-                                Calendar localInstanceOfnextDate= tempSystemTime;
+                                Calendar localInstanceOfnextDate = tempSystemTime;
                                 int dayValue = Arrays.stream(order).filter(x -> x >= localInstanceOfnextDate.get(Calendar.DAY_OF_WEEK)).findFirst().getAsInt();
                                 tempSystemTime.set(Calendar.DAY_OF_WEEK,dayValue);
                                 Date assignLocal = tempSystemTime.getTime();
@@ -239,7 +239,7 @@ class LocalExample4
                 // Generally below loop won't iterate more than 12 times except on one edge case.
                 // This edge case happens when runOnDay is "31" and there is no month is Months List that has "31" days. 
                 // In this case loop wont break, so we need to break after 12 iterations.
-                while(iter<13)
+                while(iter < 13)
                 {   
                     // Checking 3 conditons; 1: current month is the list, 2: current time is after system time 3: if current month can take runOnDay value 
                     // i.e if runOnDay is 31 but February can never take a 31st day. 
@@ -248,7 +248,7 @@ class LocalExample4
                     if(Arrays.stream(monthList).anyMatch(month.toUpperCase()::equals) && nextDate.after(systemTime) && nextDate.getActualMaximum(Calendar.DAY_OF_MONTH)>=dayOfMonth)
                         {   
                             // Setting the day of current month to the runOnDay value 
-                            if(dayOfMonth==0)
+                            if(dayOfMonth == 0)
                                 nextDate.set(Calendar.DAY_OF_MONTH,nextDate.getActualMaximum(Calendar.DAY_OF_MONTH));
                             else
                                 nextDate.set(Calendar.DAY_OF_MONTH,dayOfMonth);   
@@ -265,7 +265,7 @@ class LocalExample4
                      }
                     // Increase the month by 1 and check 
                     nextDate.add(Calendar.MONTH,1);
-                    iter+=1;
+                    iter += 1;
                 } 
                 return null;          
             }
