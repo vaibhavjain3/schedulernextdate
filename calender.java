@@ -18,7 +18,7 @@ class LocalExample4
         int value;
         private ShortDays(int n)
         {
-            value=n;
+            value = n;
         }
         int Value(){
             return value;
@@ -31,7 +31,7 @@ class LocalExample4
         int value;
         private ShortMonths(int n)
         {
-            value =n;
+            value = n;
         }
         int Value(){
             return value;
@@ -45,7 +45,7 @@ class LocalExample4
         String months = "FEB,AUG,DEC";
 
         ZoneId currentZone = ZoneId.systemDefault();
-        LocalDateTime startDate = LocalDateTime.of(2020, 6, 6, 23, 0, 0);
+        LocalDateTime startDate = LocalDateTime.of(2020, 8, 12, 23, 0, 0);
 
         Date sdate = Date.from(startDate.atZone(currentZone).toInstant());
         startDate = startDate.plusMonths(11);
@@ -53,7 +53,7 @@ class LocalExample4
         System.out.println("Start Date: " + sdate);
         System.out.println("End date: " + end);
 
-        System.out.println("Next Date: " + test.nextRunDate(sdate, end, FrequencyType.Monthly, 1, months, runOnDaysOfWeek, "last"));
+        System.out.println("Next Date: " + test.nextRunDate(sdate, end, FrequencyType.Daily, 3, months, runOnDaysOfWeek, "last"));
     }
 
     private Date nextRunDate(Date startDate, Date endDate, FrequencyType frequencyType, int repeatEvery,String months, String runOnDaysOfWeek, String runOnDay) 
@@ -87,7 +87,9 @@ class LocalExample4
                 long dueDays = repeatEvery - (diff % repeatEvery);
 
                 startDateC.add(Calendar.DAY_OF_WEEK, (int)diff + (int)dueDays);
-                nextDate=startDateC;
+                Date assign = startDateC.getTime();
+                nextDate.setTime(assign);
+
                 if (systemTime.after(nextDate))
                     nextDate.add(Calendar.DAY_OF_WEEK,repeatEvery);
                 if (endDateC.after(nextDate))
