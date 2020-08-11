@@ -87,8 +87,7 @@ class LocalExample4
                 long dueDays = repeatEvery - (diff % repeatEvery);
 
                 startDateC.add(Calendar.DAY_OF_WEEK, (int)diff + (int)dueDays);
-                Date assign = startDateC.getTime();
-                nextDate.setTime(assign);
+                nextDate.setTime(startDateC.getTime());
 
                 if (systemTime.after(nextDate))
                     nextDate.add(Calendar.DAY_OF_WEEK,repeatEvery);
@@ -114,8 +113,7 @@ class LocalExample4
 
                 if (startDateC.after(systemTime)) 
                 {   
-                    Date assign = startDateC.getTime();
-                    nextDate.setTime(assign);
+                    nextDate.setTime(startDateC.getTime());
 
                     // Now to 2 cases arise
                     // If startDate is on Day which is after the last day on dayList
@@ -135,8 +133,7 @@ class LocalExample4
                 else
                 {
                     Calendar tempStartDate = Calendar.getInstance();
-                    Date assign = startDateC.getTime();
-                    tempStartDate.setTime(assign);
+                    tempStartDate.setTime(startDateC.getTime());
 
                     // Finding the week from which task stated executing.
                     if (!(tempStartDate.get(Calendar.DAY_OF_WEEK) <= order[dayList.length - 1]))
@@ -170,17 +167,15 @@ class LocalExample4
                         if ((tempSystemTime.get(Calendar.DAY_OF_WEEK) <= order[dayList.length - 1]))
                         {   
                             if(tempSystemTime.after(systemTime))
-                            {
-                                Date assignLocal = tempSystemTime.getTime();  
-                                nextDate.setTime(assignLocal);
+                            { 
+                                nextDate.setTime(tempSystemTime.getTime());
                             }
                             // If current day is before system and current day is the last day in the daysList. So we need to skip to the eligible week   
                             else if(tempSystemTime.get(Calendar.DAY_OF_WEEK)==order[dayList.length-1])
                             {
                                 tempSystemTime.add(Calendar.WEEK_OF_MONTH,repeatEvery);
                                 tempSystemTime.set(Calendar.DAY_OF_WEEK,order[0]);
-                                Date assignLocal = tempSystemTime.getTime();
-                                nextDate.setTime(assignLocal); 
+                                nextDate.setTime(tempSystemTime.getTime()); 
                             }
                             // If there are still days left in current week that are in the daysList. 
                             else
@@ -189,8 +184,7 @@ class LocalExample4
                                 Calendar localInstanceOfnextDate = tempSystemTime;
                                 int dayValue = Arrays.stream(order).filter(x -> x >= localInstanceOfnextDate.get(Calendar.DAY_OF_WEEK)).findFirst().getAsInt();
                                 tempSystemTime.set(Calendar.DAY_OF_WEEK,dayValue);
-                                Date assignLocal = tempSystemTime.getTime();
-                                nextDate.setTime(assignLocal);                   
+                                nextDate.setTime(tempSystemTime.getTime());                   
                             }                                               
                         }
                         // If no days are left in the current eligible week so we need to skip to the next eligible week. 
@@ -219,19 +213,17 @@ class LocalExample4
 
                 if(startDateC.after(systemTime))
                 {
-                    Date assign = startDateC.getTime();
-                    nextDate.setTime(assign);
+                    nextDate.setTime(startDateC.getTime());
                 }
                 else
                 {
-                    Date assign = systemTime.getTime();
-                    nextDate.setTime(assign);
+                    nextDate.setTime(systemTime.getTime());
                     nextDate.set(Calendar.HOUR_OF_DAY,startDateC.get(Calendar.HOUR_OF_DAY));
                     nextDate.set(Calendar.MINUTE,startDateC.get(Calendar.MINUTE));
                     nextDate.set(Calendar.SECOND,startDateC.get(Calendar.SECOND));         
                 }
                 
-                int iter=0;
+                int iter = 0;
 
                 // Initiate dayOfMonth Value based on runOnday: if "last" dayOfMonth=0; if "any other Integer" dayOfMonth= that value
                 int dayOfMonth = (runOnDay=="last")?0:Integer.parseInt(runOnDay);
