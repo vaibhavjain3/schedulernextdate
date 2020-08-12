@@ -77,12 +77,13 @@ class ImageRenderer extends DefaultTableCellRenderer
       return BorderFactory.createEmptyBorder(i.top, i.left, i.bottom, i.right);
   }
 
-  ImageIcon icon = new ImageIcon(getClass().getResource("youtube1.png"));
+  ImageIcon youtube = new ImageIcon(getClass().getResource("youtube1.png"));
+  ImageIcon twitter = new ImageIcon(getClass().getResource("twiiter1.png")); 
 
   public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,boolean hasFocus, int row, int column) 
   {
     setText((String) value);
-    setIcon(icon);
+    setIcon(((String)value=="Jaideep")?twitter:youtube);
     setOpaque(true);
     setFont(new FontUIResource("",Font.PLAIN,12));
     setBorder(hasFocus? focusedCellBorder : unfocusedCellBorder);
